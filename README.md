@@ -106,6 +106,8 @@ Also, check the [example](example) directory.
 * `dryRun [optional]` - `boolean`, attempts a dry run (useful for dev
   environments)
 * `debug [optional]` - `boolean`, print some useful debug information
+* `silent [optional]` - `boolean`, if `true`, all logs are suppressed (useful for `--json` option)
+* `errorHandler [optional]` - `function(err: Error, invokeErr: function(): void): void`, when Cli error occurs, plugin calls this function. webpack compilation failure can be chosen by calling `invokeErr` callback or not. default `(err, invokeErr) => { invokeErr() }`
 
 You can find more information about these options in our official docs:
 https://docs.sentry.io/cli/releases/#sentry-cli-sourcemaps

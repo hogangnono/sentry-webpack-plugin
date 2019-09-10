@@ -12,7 +12,7 @@ const mockCli = {
   },
 };
 
-const SentryCliMock = jest.fn(configFile => mockCli);
+const SentryCliMock = jest.fn((configFile, options) => mockCli);
 const SentryCli = jest.mock('@sentry/cli', () => SentryCliMock);
 const SentryCliPlugin = require('..');
 
@@ -93,7 +93,9 @@ describe('CLI configuration', () => {
       configFile: 'some/sentry.properties',
     });
 
-    expect(SentryCliMock).toHaveBeenCalledWith('some/sentry.properties');
+    expect(SentryCliMock).toHaveBeenCalledWith('some/sentry.properties', {
+      silent: false,
+    });
   });
 
   test('only creates a single CLI instance', () => {
@@ -196,6 +198,30 @@ describe('afterEmitHook', () => {
 
     setImmediate(() => {
       expect(compilation.errors).toEqual(['Sentry CLI Plugin: Pickle Rick']);
+      expect(compilationDoneCallback).toBeCalled();
+      done();
+    });
+  });
+
+  test('handles errors with errorHandler option', done => {
+    expect.assertions(3);
+    mockCli.releases.new.mockImplementationOnce(() =>
+      Promise.reject(new Error('Pickle Rick'))
+    );
+    let e;
+
+    const sentryCliPlugin = new SentryCliPlugin({
+      include: 'src',
+      release: 42,
+      errorHandler: err => {
+        e = err;
+      },
+    });
+    sentryCliPlugin.apply(compiler);
+
+    setImmediate(() => {
+      expect(compilation.errors).toEqual([]);
+      expect(e.message).toEqual('Pickle Rick');
       expect(compilationDoneCallback).toBeCalled();
       done();
     });
