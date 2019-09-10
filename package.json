@@ -7,11 +7,11 @@
     "webpack",
     "source-map"
   ],
-  "author": "Sentry",
-  "version": "1.8.1",
+  "author": "hogangnono",
+  "version": "1.8.1-hogangnono",
   "license": "MIT",
-  "repository": "git@github.com:getsentry/sentry-webpack-plugin.git",
-  "homepage": "https://github.com/getsentry/sentry-webpack-plugin",
+  "repository": "git@github.com:hogangonno/sentry-webpack-plugin.git",
+  "homepage": "https://github.com/hogangono/sentry-webpack-plugin",
   "main": "src/index.js",
   "types": "index.d.ts",
   "engines": {
@@ -43,5 +43,8 @@
     "test:integration": "cd example && yarn && yarn test",
     "test:watch": "jest --watch --notify",
     "codecov": "codecov"
+  },
+  "publishConfig": {
+    "registry": "https://npm.housefeed.com"
   }
 }
