@@ -62,7 +62,7 @@ function toArray(value) {
 
 /** Backwards compatible version of `compiler.plugin.afterEmit.tapAsync()`. */
 function attachAfterEmitHook(compiler, callback) {
-  if (compiler.hooks) {
+  if (compiler.hooks && compiler.hooks.afterEmit) {
     compiler.hooks.afterEmit.tapAsync('SentryCliPlugin', callback);
   } else {
     compiler.plugin('after-emit', callback);
@@ -322,7 +322,7 @@ class SentryCliPlugin {
 
         if (!release) {
           throw new Error(
-            `Unabled to determine version. Make sure to include \`release\` option or use the environment that supports auto-detection https://docs.sentry.io/cli/releases/#creating-releases`
+            `Unable to determine version. Make sure to include \`release\` option or use the environment that supports auto-detection https://docs.sentry.io/cli/releases/#creating-releases`
           );
         }
 
@@ -374,4 +374,4 @@ class SentryCliPlugin {
   }
 }
 
-module.exports = SentryCliPlugin;
+module.exports.default = SentryCliPlugin;

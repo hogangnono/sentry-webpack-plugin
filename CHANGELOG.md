@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.11.1
+
+- meta: Bump sentry-cli to `1.52.3` which fixes output handlers
+
+## v1.11.0
+
+**This release sets `node.engine: >=8` which makes it incompatible with Node v6**
+If you need to support Node v6, please pin your dependency to `1.10.0`
+and use selective version resolution: https://classic.yarnpkg.com/en/docs/selective-version-resolutions/
+
+- meta: Bump sentry-cli to `1.52.2`
+- meta: Drop support for `node v6` due to new `sentry-cli` requiring `node >=8`
+- chore: Fix setCommits types (#169)
+
+## v1.10.0
+
+- feat: Allow for skiping release finalization (#157)
+- fix: Ensure afterEmit hook exists (#165)
+- chore: Update TS definitions (#168)
+
 ## v1.9.3
 
 - chore: Bump sentry-cli to `1.49.0`
